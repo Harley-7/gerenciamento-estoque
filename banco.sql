@@ -2,6 +2,11 @@ CREATE DATABASE gerenciamento_estoque;
 
 USE gerenciamento_estoque;
 
+CREATE TABLE stock (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    stock_name VARCHAR(100) NOT NULL UNIQUE
+);
+
 CREATE TABLE usuarios ( 
 id INT AUTO_INCREMENT PRIMARY KEY,  
 id_stock INT,
@@ -13,11 +18,6 @@ access_level ENUM('admin', 'operador', 'visualizador'),
 created_in DATETIME DEFAULT CURRENT_TIMESTAMP ,
 CONSTRAINT fk_usuarios_stock FOREIGN KEY (id_stock) REFERENCES stock(id)
 ); 
-
-CREATE TABLE stock (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    stock_name VARCHAR(100) NOT NULL UNIQUE
-);
 
 CREATE TABLE usuario_log (
     id_log INT AUTO_INCREMENT PRIMARY KEY,
