@@ -1,0 +1,34 @@
+/*Users Container*/
+.userContainer{
+    background-color: #f7fafa;
+    padding: 1rem 7rem;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    gap: 4rem;
+    width: 800px;
+    cursor: pointer;
+    transition: 1s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.userContainer:hover{
+    transform: scale(1.1);
+}
+
+.infoUsers{
+    display: flex;
+    justify-content: space-around;
+    gap: 7rem;
+    font-size: 18px;
+    color: #4d4d4d;
+    font-weight: bold;
+}
+
+
+
+
+
+

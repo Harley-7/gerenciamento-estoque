@@ -1,0 +1,5 @@
+# Arquivo de ambiente
+.env
+
+# Dependências do Composer
+/vendor/
