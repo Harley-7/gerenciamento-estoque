@@ -107,6 +107,12 @@ html, body{
     z-index: 9999;
 }
 
+.status{
+    display: flex;
+    flex-direction: column;
+    margin-right: 21rem;
+    gap: 0.5rem;
+}
 
 /*Center Container*/
 .centerContainer{
@@ -626,7 +632,7 @@ select[name="access_level"] option:hover{
 
 .headerEdit .titleEdit{
     color: #4d4d4d;
-    margin: 1.5rem 0;
+    margin-top: 1.5rem;
     text-align: center;
 }
 
@@ -1096,3 +1102,9 @@ select[name="access_level"] option:hover{
 #finalizeSale:hover{
     transform: scale(1.05);
 }
+
+/* Replacement Stock */
+#entryNum{
+    color: #28a745;
+}
+

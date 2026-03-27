@@ -29,7 +29,7 @@ CREATE TABLE usuario_log (
         REFERENCES usuarios (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-) ENGINE=InnoDB;
+);
 
 CREATE TABLE produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,

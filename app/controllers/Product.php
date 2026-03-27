@@ -6,7 +6,9 @@ use app\classes\BlockNotLogged;
 use app\classes\BlockSomeReason;
 use app\classes\Flash;
 use app\classes\Validate;
+use app\database\activerecord\FindBy;
 use app\database\activerecord\Insert;
+use app\database\activerecord\Update;
 use app\interfaces\ControllerInterface;
 use app\models\Produtos;
 use app\database\connection\Connection;
@@ -92,6 +94,58 @@ class Product implements ControllerInterface
         }else{
             Flash::set('product', 'Falha ao tentar adicionar um novo produto');
             return redirect('/product');
+        }
+
+    }
+
+    public function replacement($args){
+
+        $produto = (new Produtos)->execute(Connection::connect() ,new FindBy("id", $args[0], "id, produto, estoque"));
+
+        $this->view = "replacementStock.php";
+        $this->master = $_SESSION['user']->access_level."/master.php";
+        $this->data = [
+            'title' => "Reposição",
+            'produto' => $produto
+        ]; 
+
+    }
+
+    public function replacement_update($args){
+        
+        if(empty($_POST) || empty($args)){
+           return redirect('/error404');
+        }
+
+        $stock = $args[0];
+        $id = $args[1];
+
+        $validate = new Validate;
+        $validate->handle([
+            'entry' => [REQUIRED]
+        ]);
+
+        if($validate->error){
+            return redirect("/product/replacement");
+        }
+
+        if($validate->data['entry'] < 1){
+            Flash::set("replacementStock", "Entrada inválida");
+            return redirect("/product/replacement/$id"); 
+        }
+
+        $updatedStock = $stock + $validate->data['entry'];
+
+        $produtos = new Produtos;
+        $produtos->estoque = $updatedStock;
+        $updated = $produtos->execute(Connection::connect(), new Update("id", $id));
+
+        if($updated){
+            Flash::set("replacementStock", "Reposição de estoque feita com sucesso", icon:"success");
+            return redirect("/product/replacement/$id");
+        }else{
+            Flash::set("replacementStock", "Falha ao fazer reposição de estoque");
+            return redirect("/product/replacement/$id");    
         }
 
     }

@@ -1,5 +1,7 @@
 <div class="centerContainer">
 
+    <a class="backBtn" href="/stock"><i class="bi bi-arrow-90deg-left"></i></a>
+
     <div class="details">
         
         <img class="imgProduct" src="/<?php echo $produto->imagem; ?>" alt="">
@@ -33,17 +35,15 @@
 
         </ul>
 
-        <div class="btnContainer">
-            <a href="/stock" class="simpleBtn">Voltar</a>
-        </div>
-
     </div>
 
     <?php if ($_SESSION['user']->access_level !== 'visualizador'){ ?>
-    
-        <a href="/stock/edit/id/<?php echo $produto->id; ?>" class="function"><i class="bi bi-sliders"></i>Editar dados da mercadoria</a>
 
-        <a href="/stock/alert_destroy/id/<?php echo $produto->id; ?>" class="function red">
+        <a href="/product/replacement/<?php echo $produto->id;?>" class="function"><i class="bi bi-box2"></i> Reposição de estoque</a>
+    
+        <a href="/stock/edit/id/<?php echo $produto->id;?>" class="function"><i class="bi bi-sliders"></i>Editar dados da mercadoria</a>
+
+        <a href="/stock/alert_destroy/id/<?php echo $produto->id;?>" class="function red">
             <i class="bi bi-trash3"></i>
             Deletar a mercadoria
         </a>
