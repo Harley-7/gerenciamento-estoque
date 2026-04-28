@@ -14,7 +14,7 @@ class ValidateStock implements ValidateInterface{
     public function handle($field, $param)
     {
 
-       $string = strip_tags($_POST[$field]);
+       $string = preg_replace('/\s+/', '_', trim(strip_tags($_POST[$field])));
 
        $error = false;
 

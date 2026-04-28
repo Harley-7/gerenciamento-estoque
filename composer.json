@@ -14,7 +14,8 @@
             "app/helpers/formatDate.php",
             "app/helpers/formatCurrencyBRL.php",
             "app/helpers/isSelected.php",
-            "app/helpers/alertMessages.php"
+            "app/helpers/alertMessages.php",
+            "app/helpers/makeDirectory.php"
         ]
     },
     "authors": [

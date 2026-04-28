@@ -107,7 +107,7 @@ class Stock implements ControllerInterface
         ];
 
         if(!empty($_FILES['imagem']['name'])){
-            $fields['imagem'] = [IMAGE];
+            $fields['imagem'] = [IMAGE.":products"];
         }
 
         $validate = new Validate;
@@ -122,12 +122,12 @@ class Stock implements ControllerInterface
         
         if(!empty($_FILES['imagem']['name'])){
 
-            $imageOld = $produto->execute($connection, new FindBy($args[0], $args[1], 'imagem'));
-            unlink($imageOld->imagem);
+            $imageOld = $produto->execute($connection, new FindBy($args[0], $args[1], 'imagem_path'));
+            unlink($imageOld->imagem_path);
             
             $image = $validate->data['imagem'];
 
-            $produto->imagem = $image['path'];
+            $produto->imagem_path = $image['path'];
 
             $moved = move_uploaded_file($image['tmp_name'], $image['path']);
 

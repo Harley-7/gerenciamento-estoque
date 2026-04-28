@@ -56,26 +56,29 @@ class Signup implements ControllerInterface
             return redirect('/signup');
         }
 
+        makeDirectory($validate->data['stock_name'], ['users', 'products']);
+
         try {
             Transaction::open();
+            $connection = Transaction::get();
             
             $stock = new Stock;
             $stock->stock_name = $validate->data["stock_name"];
-            $createdStock = $stock->execute(Transaction::get(), new Insert);
+            $createdStock = $stock->execute($connection, new Insert);
     
-            $stockId = $stock->execute(Transaction::get(), new FindBy("stock_name", $validate->data["stock_name"], "id"));
+            $stockId = $stock->execute($connection, new FindBy("stock_name", $validate->data["stock_name"], "id"));
     
             $userCreate = new Usuarios;
             $userCreate->firstname = $validate->data['firstname'];
             $userCreate->lastname = $validate->data['lastname'];
             $userCreate->email = $validate->data['email'];
             $userCreate->password = password_hash($validate->data['password'], PASSWORD_DEFAULT);
-            
             $userCreate->access_level = "Admin";
             $userCreate->id_stock = $stockId->id;
-            $createdUser = $userCreate->execute(Transaction::get(), new Insert);
+            $createdUser = $userCreate->execute($connection, new Insert);
 
             Transaction::close();
+
         } catch (\Throwable $th) {
             echo formatException($th);
             Transaction::rollback();
@@ -83,6 +86,7 @@ class Signup implements ControllerInterface
 
         if($createdStock && $createdUser){
             Flash::set('createdStock', 'Cadastrado com sucesso. Agora faça login para acessar os serviços disponíveis', 'success', 'success');
+
             return redirect('/login');
         }else{
             Flash::set('createdStock', 'Falha ao tentar criar estoque');

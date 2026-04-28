@@ -33,7 +33,7 @@ class User implements ControllerInterface
      public function index(array $args){
 
         $select = (new SelectBuilder)->table('usuarios u')
-        ->fields('u.id, u.firstname, u.lastname, u.email, u.access_level, ul.ultima_atividade, ul.status_online')
+        ->fields('u.id, u.imagem_path, u.firstname, u.lastname, u.email, u.access_level, ul.ultima_atividade, ul.status_online')
         ->join('usuario_log ul', 'u.id = ul.id_usuario', 'left')
         ->where("$args[0] = $args[1]")
         ->build();
@@ -43,12 +43,15 @@ class User implements ControllerInterface
         }
 
         $user = (new Execute)->fetch($select);
+        $photo = $user->imagem_path;
+        unset($user->imagem_path);
 
         $this->view = 'userFunctions.php';
         $this->master = "{$_SESSION['user']->access_level}/master.php";
         $this->data = [
             'title' => 'Funções de Usuário',
-            'user' => $user
+            'user' => $user,
+            'photo' => $photo
         ];
 
      }
@@ -210,6 +213,58 @@ class User implements ControllerInterface
          }else{
             Flash::set('deletedAccount', 'Falha ao tentar excluir a conta');
             return redirect('/user/alert_destroy');
+         }
+
+     }
+
+     function add_photo(){
+
+         $this->view = 'add_photo.php';
+         $this->master = "{$_SESSION['user']->access_level}/master.php";
+         $this->data = [
+            'title' => 'Adicionar foto de perfil'
+         ];
+
+     }
+
+     function submit_photo(){
+         $validate = new Validate;
+         $validate->handle([
+            'photo' => [IMAGE.":users"] 
+         ]);
+
+         if($validate->error){
+            return redirect("/user/add_photo");
+         }
+
+         $connection = Connection::connect();
+         $idUser = $_SESSION['user']->id;
+
+         $imageOld = (new Usuarios)->execute($connection, new FindBy('id', $idUser, 'imagem_path'));
+
+         if($imageOld->imagem_path){
+            unlink($imageOld->imagem_path);
+         }
+
+         $photo = $validate->data['photo'];
+         
+         $moved = move_uploaded_file($photo['tmp_name'], $photo['path']);
+
+         if(!$moved){
+            Flash::set('imagem', 'Falha ao fazer o upload da imagem');
+            return redirect("/user/add_photo");
+         }
+
+         $user = new Usuarios;
+         $user->imagem_path = $photo['path'];
+         $submit = $user->execute($connection, new Update('id', $idUser));
+
+         if($submit){
+            Flash::set('photo', 'Foto adicionada com sucesso', icon: 'success');
+            return redirect('/user/add_photo');
+         }else{
+            Flash::set('photo', 'Falha ao adionar foto de perfil',);
+            return redirect('/user/add_photo');
          }
 
      }

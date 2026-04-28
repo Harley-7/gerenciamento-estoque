@@ -6,19 +6,18 @@
 
     <?php if(count($users) > 1){  ?>
 
-        <div class="infoUsers">
-            <p>Nome</p>
-            <p>Status</p>
-            <p>Função</p>
-            <p>Detalhes</p>
-        </div>
-
         <?php
             foreach($users as $user)
             {
                 if($user->id !== $_SESSION['user']->id){
         ?>  
                 <div class="userContainer">
+                    <?php if($user->imagem_path){ ?>
+                        <img src="/<?php echo $user->imagem_path; ?>" alt="<?php echo $user->firstname." ".$user->lastname ?>">
+                    <?php }else{ ?>
+                        <i class="bi bi-person"></i>
+                    <?php } ?> 
+                   
                     <?php  
                         echo $user->firstname." ".$user->lastname."<br>";
                         echo status($user->status_online);

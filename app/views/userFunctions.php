@@ -3,7 +3,11 @@
     <div class="details">
 
         <div class="userProfile">
-            <i class="bi bi-person"></i>
+            <?php if($photo){ ?>
+                <img src="/<?php echo $photo; ?>" alt="<?php echo $user->firstname." ".$user->lastname ?>">
+            <?php }else{ ?>
+                <i class="bi bi-person"></i>
+            <?php } ?>    
         </div>
 
         <h1 class="titleUser"><?php echo $user->firstname." ".$user->lastname ?></h1>
@@ -16,7 +20,7 @@
 
                 <?php 
                     foreach($user as $info => $value){
-
+                    
                         if(str_contains($info, '_')){
                             $infoFormat = ucfirst(str_replace('_', " ", $info));
                         }else{
@@ -39,6 +43,11 @@
         </div>
 
     </div>
+
+    <a href="/user/add_photo" class="function">
+        <i class="bi bi-person"></i>
+        Adicionar foto de perfil
+    </a>
 
     <a href="/user/edit" class="function">
         <i class="bi bi-pencil-square"></i>

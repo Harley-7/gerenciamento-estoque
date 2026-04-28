@@ -10,6 +10,7 @@ CREATE TABLE stock (
 CREATE TABLE usuarios ( 
 id INT AUTO_INCREMENT PRIMARY KEY,  
 id_stock INT,
+imagem_path VARCHAR(255),
 firstname VARCHAR(100) NOT NULL,  
 lastname VARCHAR(100) NOT NULL, 
 email VARCHAR(255) NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE usuario_log (
 CREATE TABLE produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_stock INT,
-    imagem VARCHAR(255),
+    imagem_path VARCHAR(255),
     produto VARCHAR(100) NOT NULL,
     categoria ENUM(
     'Alimentos e Bebidas',

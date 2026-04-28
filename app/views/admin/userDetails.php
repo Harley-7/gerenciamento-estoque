@@ -3,7 +3,11 @@
     <div class="details">
 
         <div class="userProfile">
-            <i class="bi bi-person"></i>
+            <?php if($photo){ ?>
+                <img src="/<?php echo $photo; ?>" alt="<?php echo $user->firstname." ".$user->lastname ?>">
+            <?php }else{ ?>
+                <i class="bi bi-person"></i>
+            <?php } ?>    
         </div>
 
         <h1 class="titleDetails"><?php echo $user->firstname." ".$user->lastname ?></h1>

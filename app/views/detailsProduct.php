@@ -4,7 +4,7 @@
 
     <div class="details">
         
-        <img class="imgProduct" src="/<?php echo $produto->imagem; ?>" alt="">
+        <img class="imgProduct" src="/<?php echo $produto->imagem_path; ?>" alt="">
         
         <h1 class="titleDetails"><?php echo $produto->produto; ?></h1>
 

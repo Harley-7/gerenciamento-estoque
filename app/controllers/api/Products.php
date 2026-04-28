@@ -24,7 +24,7 @@ class Products implements ApiInterface{
     public function getAll(){
         header("Content-Type: application/json");
            
-        $products = (new Produtos)->execute(Connection::connect(), new FindAll(where:["id_stock" => $_SESSION['user']->id_stock], fields:"id, imagem, produto, preco_venda, estoque"));
+        $products = (new Produtos)->execute(Connection::connect(), new FindAll(where:["id_stock" => $_SESSION['user']->id_stock], fields:"id, imagem_path, produto, preco_venda, estoque"));
 
         echo json_encode($products);
 

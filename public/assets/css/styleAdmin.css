@@ -8,7 +8,8 @@
     display: flex;
     justify-content: space-around;
     gap: 4rem;
-    width: 800px;
+    width: 970px;
+    height: 64px;
     cursor: pointer;
     transition: 1s;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -16,6 +17,15 @@
 
 .userContainer:hover{
     transform: scale(1.1);
+}
+
+.userContainer img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    margin: 0;
 }
 
 .infoUsers{

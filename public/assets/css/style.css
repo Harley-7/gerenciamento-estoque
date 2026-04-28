@@ -786,16 +786,18 @@ select[name="access_level"] option:hover{
 
 /*User Container*/
 .userProfile{
-    border: 2px solid #fff;
-    border-radius: 8px;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    background-color: #183256;
-    color: #fff;
     margin-top: 20px;
     cursor: pointer;
     transition: 0.5s;
+    overflow: hidden;
+}
+
+.userProfile img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
 }
 
 .userProfile:hover{

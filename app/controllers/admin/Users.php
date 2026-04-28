@@ -37,7 +37,7 @@ class Users implements ControllerInterface
         $id_stock = $_SESSION['user']->id_stock;
             
         $select = (new SelectBuilder)->table('usuarios u')
-        ->fields('u.id, u.firstname, u.lastname, u.access_level, ul.status_online')
+        ->fields('u.id, u.imagem_path, u.firstname, u.lastname, u.access_level, ul.status_online')
         ->join('usuario_log ul', 'u.id = ul.id_usuario', 'left')
         ->where("u.id_stock = $id_stock")
         ->build();
@@ -56,7 +56,7 @@ class Users implements ControllerInterface
     public function details(array $args){
     
         $select = (new SelectBuilder)->table('usuarios u')
-        ->fields('u.id, u.firstname, u.lastname, u.email, u.access_level, u.id_stock, ul.ultima_atividade, ul.status_online')
+        ->fields('u.id, u.imagem_path, u.firstname, u.lastname, u.email, u.access_level, u.id_stock, ul.ultima_atividade, ul.status_online')
         ->join('usuario_log ul', 'u.id = ul.id_usuario', 'left')
         ->where("$args[0] = $args[1]")
         ->build();
@@ -70,12 +70,16 @@ class Users implements ControllerInterface
         if($user->id_stock != $_SESSION['user']->id_stock){
             return redirect("/".$_SESSION['user']->access_level);
         }  
+
+        $photo = $user->imagem_path;
+        unset($user->imagem_path);
         
         $this->view = 'admin/userDetails.php';
         $this->master = 'admin/master.php';
         $this->data = [
             'title' => 'Detalhes do Usuário',
-            'user' => $user
+            'user' => $user,
+            'photo' => $photo
         ];
 
     }

@@ -47,7 +47,7 @@ class Product implements ControllerInterface
         $validate = new Validate;
 
         $validate->handle([
-            'imagem' => [IMAGE],
+            'imagem' => [IMAGE.":products"],
             'produto' => [REQUIRED],
             'preco_compra' => [REQUIRED],
             'preco_venda' => [REQUIRED],
@@ -72,7 +72,7 @@ class Product implements ControllerInterface
         }
             
         $produto = new Produtos;
-        $produto->imagem = $image['path'];
+        $produto->imagem_path = $image['path'];
 
         foreach($validate->data as $field => $value){
 

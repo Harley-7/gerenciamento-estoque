@@ -23,7 +23,7 @@
 
             <div class="productContainer">
                 
-                <img src="<?php echo $produto->imagem ?>">
+                <img src="/<?php echo $produto->imagem_path ?>">
 
                 <?php 
                     echo "<span>".$produto->produto."</span>";

@@ -25,7 +25,6 @@ async function loadProducts() {
   const res = await fetch("http://localhost:8000/api/products/getAll");
   const data = await res.json();
   products = data;
-  console.log(data);
   renderSuggestions(products);
 }      
 
@@ -39,7 +38,7 @@ function renderSuggestions(products){
           const div = createElement("div");
           div.addEventListener('click', () => selectProduct(produto.id));
 
-          const img = createElement("img", {src: `/${produto.imagem}`, alt: produto.produto});
+          const img = createElement("img", {src: `/${produto.imagem_path}`, alt: produto.produto});
 
           const span = createElement("span", {className: "productName", textContent: produto.produto});
 
@@ -117,7 +116,7 @@ function selectProduct(id){
 
   divProduct = createElement("div", {id: "product"});
   
-  img = createElement("img", {src: `/${searchedProduct.imagem}` , alt: searchedProduct.produto});
+  img = createElement("img", {src: `/${searchedProduct.imagem_path}` , alt: searchedProduct.produto});
 
   span = createElement("span", {textContent: searchedProduct.produto}); 
 
@@ -278,7 +277,7 @@ function renderProductList(){
         
         li = createElement("li", {id: `p${product.id}`});        
 
-        img = createElement("img", {src: `/${product.imagem}`, alt: product.produto});
+        img = createElement("img", {src: `/${product.imagem_path}`, alt: product.produto});
         
         divName = createElement("div", {className: "nameProduct", textContent: product.produto});
 
